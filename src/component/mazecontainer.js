@@ -405,7 +405,7 @@ class Mazecontainer extends Component {
                 <option value="7">Sam's Maze</option>
               </select>
             </div>
-      <div style={{width: this.state.mazeWidth*20,marginBottom: "50px"}} className="container">
+      <div style={{width: this.state.mazeWidth*15,marginBottom: "50px"}} className="container">
         <div className="row">
          {this.state.maze.map(it=>{
              return it
