@@ -12,37 +12,19 @@ class Mazecontainer extends Component {
       width: "",
       height: "",
       map: "",
-      mazeWidth: "20",
-      input:
-        "**.*******************.****............***......*****.********.*********........*..*********.*********....******.***.********......*.***.*****....****.*.....*****.***.....*****...*********************",
+      mazeWidth: "",
+      input: "",
       maze: [],
-      Graph: []
+      Graph: [],
+      tempGraph: []
     };
     //**.*******************.****............***......*****.********.*********........*..*********.*********....******.***.********......*.***.*****....****.*.....*****.***.....*****...*********************
   }
 
-  componentDidMount() {
-    console.log("Hii");
-    var flag = 1;
-    for (var i = 0; i < this.state.input.length; i++) {
-      if (this.state.input[i] == "*") {
-        this.state.maze.push(<div key={i} className="blackgrid" />);
-      } else if (this.state.input[i] == ".") {
-        if (flag) {
-          this.state.maze.push(<div key={i} className="whitegrid active" />);
-          flag = 0;
-        } else {
-          this.state.maze.push(<div key={i} className="whitegrid" />);
-        }
-      }
-    }
-
-    this.setState({ maze: this.state.maze });
-  }
-  deriveGraph(input, width, height, x, y,u,v) {
+  deriveGraph(input, width, height, x, y, u, v) {
     var j = 0;
     this.state.Graph = [];
-    console.log(input);
+    //console.log(input);
     for (var i = 0; i < height; i++) {
       var count = 0;
       var temp = "";
@@ -109,7 +91,8 @@ class Mazecontainer extends Component {
         }
       }
     }
-    console.log(this.state.width);
+    //console.log(this.state.width);
+
     this.setState({
       mazeWidth: this.state.width,
       input: this.state.map,
@@ -129,11 +112,11 @@ class Mazecontainer extends Component {
     this.setState({ yEnd: e.target.value });
   }
   handlerCustom(e) {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     if (e.target.value === "1") {
       this.state.input =
         "***.**.****************....***************..****.........****..****..*******.****.****..********...**.****.***********.**.****........***..**.**************..***................***********************";
-      this.deriveGraph(this.state.input, 20, 10, 0, 3,19);
+      this.deriveGraph(this.state.input, 20, 10, 0, 3, 0, 6);
     }
     if (e.target.value === "2") {
       this.state.input =
@@ -144,31 +127,31 @@ class Mazecontainer extends Component {
       this.state.input =
         "***********************.*************************************************..*************************************************..*************************************************..*************************************************..............*************************************************..*************************...................*****..*********************....*****************...****..*****************....****............******..****..**************...****....**********....****....**..*************.******.*******....*****....****.***..************.******.....******.....****.****.****..***********...********.....******......****.*****.*************.....********.....**********...*****.*****************.....********.....***....*****...*********************....*********.....******...**************************.....*************....*****************************.**....*******....********************************.*****.........***********************************.***************************";
 
-      this.deriveGraph(this.state.input, 50, 20, 0, 23,19,22);
+      this.deriveGraph(this.state.input, 50, 20, 0, 23, 19, 22);
     }
     if (e.target.value === "4") {
       this.state.input =
         "*************************************....********....***...*******..**.*******..**..*..********..*****..***..****...*********.**....*..**.*******.*********.**.**.**.**.*******.********..**.**.**.**.*******.********.***.**.**.**.*******...******.***.**.**.**.*******.*.******.***.**.**.**.*******.*.******.***.**.**.**...*****.*.******.***.**.**.**.*..****.*.******.***.**.**.**.**.****.*.******.***.**.**.**.**.****.*.******.***.**.**.**.**.****.*.******.***.**.**.**.**.****.*..*****.***.**.**.**.**.****.**.****..**..**.**.**.**.****.**.****.***.***.**.**.**.****.**.****.***.***.**.**.**.****.**.****.***.***.**....**.****.**.****.***.***.*****.**.****.**.****.***.***.**....**..***.*******.***.***.**.**.***.***.**.****.***.***.**.**.***.***.**.****.***.***.**.**.***.***.**.****.***.***.**.**.***.***.**.****.**..***.**.**.***.***.**.****.*..****.**.**.***.***.**.****...*****.**.**.***.***.**.****.*******.**.**.*******.**.****.*******.*..**.***.***.**.****.*******...***.**..***.**.****.**....*.***.*.**.****.**.***..**.**.*.***.*.**.****.**.***.***.**.*.***.*.**.****.**.***.***.**.*.***.*.**.****.**.***.***.**.*.***.*.*..****.**.***.***.**.*.***.*.*.*****.*..***.***.**.*.***.*.*.*****...****.***.**.*.***.*.*.*****.******.***.**.*..*..*.*.*****.*****..***.**.**...**.*.*****.*****.**...**.**.****.*.*****.*****....****.**.****...*****.*****.*******.**.****.*******.*****.*******..*.**.....*****.*****.********.***..***...***..****.********.*...******...**..***.......***********************.*****.....................***.*************************.**";
 
-      this.deriveGraph(this.state.input, 30, 52, 51, 1,51,27);
+      this.deriveGraph(this.state.input, 30, 52, 51, 1, 51, 27);
     }
     if (e.target.value === "5") {
       this.state.input =
         "************.****************************..****************************.***************************.....***********************...****..*******************...*******...*****************.***.***.***.*****************.***********.*************.***..***...***..*************..***...*****...*******.*******.*****...**..****......*******..******.**.****..*************.****...**...**.**************.*....******....**************...************...************.****************.************..**************..*************...**********...****************....*.......*********************.********************";
 
-      this.deriveGraph(this.state.input, 30, 20, 0, 12,19,9);
+      this.deriveGraph(this.state.input, 30, 20, 0, 12, 19, 9);
     }
     if (e.target.value === "6") {
       this.state.input =
         "************.****************************..****************************.***************************.....***********************...****..*******************...*******...*****************.***.***.***.*****************.***********.*************.***..***...***..*************..***...*****...*******.*******.*****...**..****......*******..******.**.****..*************.****...**...**.**************.*....******....**************...************...************.****************.************..**************..*************...**********...****************....*.......*********************.********************";
 
-      this.deriveGraph(this.state.input, 30, 20, 0, 12,19,9);
+      this.deriveGraph(this.state.input, 30, 20, 0, 12, 19, 9);
     }
     if (e.target.value === "7") {
       this.state.input =
         "*******.********.....*.*.....**.***.*.*****.**.*.*.*.....*.**.*.*.*****.*.**.*.........*.****.*********.**.....*.......**.***.*.********.*.*.*.......**.*.*.*******.**...*...*...*.******.*.*.*.*.**...*.*.*.*.*.**.***.***.*.*.**.........*...**********.*****";
 
-      this.deriveGraph(this.state.input, 15, 17, 0, 7,16,9);
+      this.deriveGraph(this.state.input, 15, 17, 0, 7, 16, 9);
     }
     if (e.target.value === "8") {
       this.state.input =
@@ -230,7 +213,7 @@ class Mazecontainer extends Component {
         *.........*...*...*...*.*.......*.*...*.....*...*...*...*....\
         *************************************************************";
 
-      this.deriveGraph(this.state.input, 61, 61, 1, 0,59,60);
+      this.deriveGraph(this.state.input, 61, 61, 1, 0, 59, 60);
     }
     //="************.****************************..****************************.***************************.....***********************...****..*******************...*******...*****************.***.***.***.*****************.***********.*************.***..***...***..*************..***...*****...*******.*******.*****...**..****......*******..******.**.****..*************.****...**...**.**************.*....******....**************...************...************.****************.************..**************..*************...**********...****************....*.......*********************.********************">
   }
@@ -239,6 +222,7 @@ class Mazecontainer extends Component {
     for (var i = 0; i < this.state.height; i++) {
       visit[i] = new Array(this.state.mazeWidth);
     }
+    //console.log(this.state.xEnd + " " + this.state.yEnd);
     this.dfs(visit, this.state.xStart, this.state.yStart);
   }
   updateGraph(visit) {
@@ -246,7 +230,7 @@ class Mazecontainer extends Component {
     var height = this.state.height;
     var c = 0;
     this.state.maze = [];
-    console.log(this.state.Graph);
+    //console.log(this.state.Graph);
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < width; j++) {
         if (visit[i][j] == 1) {
@@ -275,13 +259,14 @@ class Mazecontainer extends Component {
       var flag = 1;
       var i = src.x;
       var j = src.y;
+      //console.log(i + " " + j);
       if (i === this.state.xEnd && j === this.state.yEnd) {
         visit[i][j] = 1;
-        this.updateGraph(visit);
+        this.finalGraph(visit);
         return;
       }
       if (!visit[i][j]) visit[i][j] = 1;
-      console.log(i + " " + j);
+      //console.log(i + " " + j);
       if (
         i + 1 < this.state.height &&
         this.state.Graph[i + 1][j] == "." &&
@@ -300,12 +285,12 @@ class Mazecontainer extends Component {
         flag = 0;
       }
 
-      if (j - 1 > 0 && this.state.Graph[i][j - 1] == "." && !visit[i][j - 1]) {
+      if (j - 1 >= 0 && this.state.Graph[i][j - 1] == "." && !visit[i][j - 1]) {
         stk.push({ x: i, y: j - 1 });
         flag = 0;
       }
 
-      if (i - 1 > 0 && this.state.Graph[i - 1][j] == "." && !visit[i - 1][j]) {
+      if (i - 1 >= 0 && this.state.Graph[i - 1][j] == "." && !visit[i - 1][j]) {
         stk.push({ x: i - 1, y: j });
         flag = 0;
       }
@@ -317,11 +302,28 @@ class Mazecontainer extends Component {
 
       setTimeout(() => {
         this.nextStep(visit);
-      }, 100);
+      }, 50);
     }
 
     //visit[i][j]=0;
     // this.updateGraph(visit,i,j);
+  }
+  finalGraph(visit) {
+    this.state.maze = [];
+    var c = 0;
+    for (var i = 0; i < this.state.height; i++) {
+      for (var j = 0; j < this.state.mazeWidth; j++) {
+        if (visit[i][j] == 1) {
+          this.state.maze.push(<div key={c} className="whitegrid active" />);
+        } else if (this.state.Graph[i][j] === "*") {
+          this.state.maze.push(<div key={c} className="blackgrid" />);
+        } else if (this.state.Graph[i][j] === ".") {
+          this.state.maze.push(<div key={c} className="whitegrid" />);
+        }
+        c++;
+      }
+    }
+    this.setState({ maze: this.state.maze });
   }
   render() {
     return (
@@ -332,7 +334,7 @@ class Mazecontainer extends Component {
               style={{ marginTop: "100px", background: "#efefef" }}
               className="panel panel-default panel-hovered panel-stacked mb30"
             >
-              <div className="panel-heading">Maze Problem</div>
+              <div className="panel-heading">Maze Input</div>
               <div className="panel-body" />
               <form className="form-inline" role="form">
                 <div className="container">
@@ -471,9 +473,10 @@ class Mazecontainer extends Component {
             className="form-control"
             onChange={this.handlerCustom.bind(this)}
           >
-            <option value="1" selected={true}>
-              'G' Maze
+            <option value="0" selected={true}>
+              Select
             </option>
+            <option value="1">'G' Maze</option>
             <option value="2">Little Maze</option>
             <option value="3">Vortex</option>
             <option value="4">Bird's Eye View</option>
@@ -496,16 +499,18 @@ class Mazecontainer extends Component {
             className="row"
             style={{ textAlign: "center", marginTop: "10px" }}
           >
-            <div className="col-md-12 col-sm-12 col-xs-12">
-              <button
-                type="submit"
-                className=" btn btn-primary waves-effect "
-                style={{ marginBottom: "5px", width: "100%" }}
-                onClick={this.handlerGo.bind(this)}
-              >
-                Go
-              </button>
-            </div>
+            {this.state.input ? (
+              <div className="col-md-12 col-sm-12 col-xs-12">
+                <button
+                  type="submit"
+                  className=" btn btn-primary waves-effect "
+                  style={{ marginBottom: "5px", width: "100%" }}
+                  onClick={this.handlerGo.bind(this)}
+                >
+                  Go
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
