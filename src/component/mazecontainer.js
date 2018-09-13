@@ -24,7 +24,7 @@ class Mazecontainer extends Component {
   deriveGraph(input, width, height, x, y, u, v) {
     var j = 0;
     this.state.Graph = [];
-    //console.log(input);
+    ////console.log(input);
     for (var i = 0; i < height; i++) {
       var count = 0;
       var temp = "";
@@ -39,7 +39,7 @@ class Mazecontainer extends Component {
     }
     var c = 0;
     this.state.maze = [];
-    console.log(this.state.Graph);
+    ////console.log(this.state.Graph);
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < width; j++) {
         if (i == x && j == y) {
@@ -65,33 +65,59 @@ class Mazecontainer extends Component {
     });
   }
   handlerWidth(e) {
-    this.setState({ width: e.target.value });
+    this.setState({ width: parseInt(e.target.value) });
   }
   handlerHeight(e) {
-    this.setState({ height: e.target.value });
+    this.setState({ height: parseInt(e.target.value) });
   }
   handlerMap(e) {
     this.setState({ map: e.target.value });
   }
   handlerSubmit(e) {
     e.preventDefault();
+    ////console.log(this.state.width + "*" + this.state.height + " ");
 
-    var flag = 1;
-    this.state.input = this.state.map;
-    this.state.maze = [];
-    for (var i = 0; i < this.state.input.length; i++) {
-      if (this.state.input[i] == "*") {
-        this.state.maze.push(<div key={i} className="blackgrid" />);
-      } else if (this.state.input[i] == ".") {
-        if (flag) {
-          this.state.maze.push(<div key={i} className="whitegrid active" />);
-          flag = 0;
-        } else {
-          this.state.maze.push(<div key={i} className="whitegrid" />);
+    var input = this.state.map;
+    var width = this.state.width;
+    var height = this.state.height;
+    var j = 0;
+    this.state.Graph = [];
+    ////console.log(input);
+    for (var i = 0; i < height; i++) {
+      var count = 0;
+      var temp = "";
+      while (count != width) {
+        if (input[j] === "*" || input[j] === ".") {
+          temp += input[j];
+          count++;
         }
+        j++;
+      }
+      this.state.Graph.push(temp);
+    }
+    // //console.log(this.state.Graph);
+    var c = 0;
+    this.state.maze = [];
+    //console.log(this.state.Graph);
+    for (var i = 0; i < height; i++) {
+      for (var j = 0; j < width; j++) {
+        if (i == this.state.xStart && j == this.state.yStart) {
+          this.state.maze.push(<div key={c} className="whitegrid active" />);
+        } else if (this.state.Graph[i][j] === "*") {
+          this.state.maze.push(<div key={c} className="blackgrid" />);
+        } else if (this.state.Graph[i][j] === ".") {
+          this.state.maze.push(<div key={c} className="whitegrid" />);
+        }
+        c++;
       }
     }
-    //console.log(this.state.width);
+    this.setState({
+      mazeWidth: width,
+      input: input,
+      maze: this.state.maze,
+      Graph: this.state.Graph
+    });
+    ////console.log(this.state.width);
 
     this.setState({
       mazeWidth: this.state.width,
@@ -100,19 +126,19 @@ class Mazecontainer extends Component {
     });
   }
   handlerxStart(e) {
-    this.setState({ xStart: e.target.value });
+    this.setState({ xStart: parseInt(e.target.value) });
   }
   handlerxEnd(e) {
-    this.setState({ xEnd: e.target.value });
+    this.setState({ xEnd: parseInt(e.target.value) });
   }
   handleryStart(e) {
-    this.setState({ yStart: e.target.value });
+    this.setState({ yStart: parseInt(e.target.value) });
   }
   handleryEnd(e) {
-    this.setState({ yEnd: e.target.value });
+    this.setState({ yEnd: parseInt(e.target.value) });
   }
   handlerCustom(e) {
-    //console.log(e.target.value);
+    ////console.log(e.target.value);
     if (e.target.value === "1") {
       this.state.input =
         "***.**.****************....***************..****.........****..****..*******.****.****..********...**.****.***********.**.****........***..**.**************..***................***********************";
@@ -219,10 +245,13 @@ class Mazecontainer extends Component {
   }
   handlerGo() {
     var visit = new Array(this.state.height);
+    //console.log(this.state.height + " " + this.state.mazeWidth);
     for (var i = 0; i < this.state.height; i++) {
-      visit[i] = new Array(this.state.mazeWidth);
+      visit[i] = new Array(parseInt(this.state.mazeWidth));
     }
-    //console.log(this.state.xEnd + " " + this.state.yEnd);
+
+    //console.log(visit);
+    //console.log(this.state.Graph);
     this.dfs(visit, this.state.xStart, this.state.yStart);
   }
   updateGraph(visit) {
@@ -230,7 +259,7 @@ class Mazecontainer extends Component {
     var height = this.state.height;
     var c = 0;
     this.state.maze = [];
-    //console.log(this.state.Graph);
+    ////console.log(this.state.Graph);
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < width; j++) {
         if (visit[i][j] == 1) {
@@ -254,6 +283,7 @@ class Mazecontainer extends Component {
     this.nextStep(visit);
   }
   nextStep(visit) {
+    //console.log(this.state.Graph);
     if (stk.length) {
       var src = stk[stk.length - 1];
       var flag = 1;
@@ -266,7 +296,9 @@ class Mazecontainer extends Component {
         return;
       }
       if (!visit[i][j]) visit[i][j] = 1;
-      //console.log(i + " " + j);
+      ////console.log(i + " " + j);
+      //console.log(this.state.Graph[i + 1][j]);
+
       if (
         i + 1 < this.state.height &&
         this.state.Graph[i + 1][j] == "." &&
@@ -334,7 +366,7 @@ class Mazecontainer extends Component {
               style={{ marginTop: "100px", background: "#efefef" }}
               className="panel panel-default panel-hovered panel-stacked mb30"
             >
-              <div className="panel-heading">Maze Input</div>
+              <div className="panel-heading">Maze Inp</div>
               <div className="panel-body" />
               <form className="form-inline" role="form">
                 <div className="container">
@@ -421,7 +453,7 @@ class Mazecontainer extends Component {
                           className="form-control"
                           placeholder="Enter Height here..."
                           required
-                          onChange={this.handlerWidth.bind(this)}
+                          onChange={this.handlerHeight.bind(this)}
                         />
                       </div>
                     </div>
