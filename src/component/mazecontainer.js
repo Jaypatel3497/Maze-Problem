@@ -366,7 +366,7 @@ class Mazecontainer extends Component {
               style={{ marginTop: "100px", background: "#efefef" }}
               className="panel panel-default panel-hovered panel-stacked mb30"
             >
-              <div className="panel-heading">Maze Inp</div>
+              <div className="panel-heading">Maze Input</div>
               <div className="panel-body" />
               <form className="form-inline" role="form">
                 <div className="container">
@@ -429,7 +429,7 @@ class Mazecontainer extends Component {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-md-4 col-75">
+                    <div className="col-md-3 col-75">
                       <div className="input-group">
                         <span className="input-group-addon">
                           <i className="fa fa-user" aria-hidden="true" />
@@ -443,7 +443,7 @@ class Mazecontainer extends Component {
                         />
                       </div>
                     </div>
-                    <div className="col-md-4 col-75">
+                    <div className="col-md-3 col-75">
                       <div className="input-group">
                         <span className="input-group-addon ">
                           <i className="fa fa-envelope" aria-hidden="true" />
@@ -457,14 +457,14 @@ class Mazecontainer extends Component {
                         />
                       </div>
                     </div>
-                    <div className="col-md-4 col-75">
+                    <div className="col-md-3 col-75">
                       <div className="input-group">
                         <span className="input-group-addon ">
                           <i className="fa fa-envelope" aria-hidden="true" />
                         </span>
                         <textarea
                           name="Text1"
-                          cols="52"
+                          cols="33"
                           rows="5"
                           placeholder="map of maze..."
                           required
@@ -472,26 +472,19 @@ class Mazecontainer extends Component {
                         />{" "}
                       </div>
                     </div>
-                  </div>
-                  <div className="container">
-                    <div
-                      className="row next-btn"
-                      style={{ textAlign: "center" }}
-                    >
-                      <div className="col-md-6 col-sm-6 col-xs-6">
-                        <button
-                          type="submit"
-                          className=" btn btn-primary waves-effect "
-                          style={{
-                            marginBottom: "5px",
-                            marginLeft: "250px",
-                            width: "100%"
-                          }}
-                          onClick={this.handlerSubmit.bind(this)}
-                        >
-                          Submit
-                        </button>
-                      </div>
+                    <div className="col-md-3 col-75">
+                      <button
+                        type="submit"
+                        className=" btn btn-primary waves-effect "
+                        style={{
+                          marginBottom: "5px",
+
+                          width: "100%"
+                        }}
+                        onClick={this.handlerSubmit.bind(this)}
+                      >
+                        Submit
+                      </button>
                     </div>
                   </div>
                 </div>
